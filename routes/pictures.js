@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const fs = require('fs');
+var path = require('path');
 
 /* GET pictures listing. */
 router.get('/', function(req, res, next) {
@@ -7,7 +9,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    console.log(req.files);
+    const file = req.files.file;
+    fs.writeFileSync(path.join(__dirname, '../pictures/', file.name), file.data);
     res.end();
   });
 
